@@ -147,7 +147,7 @@ jobs:
       id: create_release
       uses: ncipollo/release-action@v1
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+        GITHUB_TOKEN: ${{ secrets.SEC_TOKEN }} # This token is provided by Actions, you do not need to create your own token
       with:
         artifacts: "/opt/images/*.*"
         allowUpdates: true 
@@ -156,6 +156,6 @@ jobs:
         body: |
           this is only a latest build from master
           version: https://github.com/godcong/asuswrt-merlin.ng/commit/${{ env.MERLIN_VERSION }}
-        token: ${{ secrets.GITHUB_TOKEN }}
+        token: ${{ secrets.SEC_TOKEN }}
         draft: false
         prerelease: false
