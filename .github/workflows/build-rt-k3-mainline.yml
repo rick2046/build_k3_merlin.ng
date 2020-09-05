@@ -111,7 +111,6 @@ jobs:
       run: |
         #export PATH=$PATH:/opt/brcm/hndtools-mipsel-linux/bin:/opt/brcm/hndtools-mipsel-uclibc/bin:
         export PATH=$PATH:/opt/brcm-arm/bin
-
         cd  /media/asuswrt/asuswrt-merlin.ng/release/src-rt
         echo "add tag to version"
         sed -i 's/EXTENDNO=.*/&_${{ env.MERLIN_TAG }}/g' version.conf
@@ -139,20 +138,19 @@ jobs:
         #sudo cp /media/asuswrt/asuswrt-merlin.ng/release/src-rt/version.conf /opt/images/
         
         sha256sum /opt/images/* > /opt/images/checksum.txt
-
     - name: Create Release
       id: create_release
-      uses: actions/create-release@v1
+      uses: ncipollo/release-action@v1
       env:
-        GITHUB_TOKEN: ${{ secrets.SEC_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
       with:
         artifacts: "/opt/images/*.*,release/src-rt-7.14.114.x/src/cfe/cfe_rt-k3.bin"
         allowUpdates: true 
         commit: master 
-        tag: ${{ env.BUILD_DATE }}_mainline_k3_${{ env.MERLIN_TAG }}
+        tag: ${{ env.BUILD_DATE }}_mainline_rick_k3_${{ env.MERLIN_TAG }}
         body: |
           this is only a latest build from mainline
-          version: https://github.com/rick2046/asuswrt-merlin.ng/commit/${{ env.MERLIN_VERSION }}
-        token: ${{ secrets.SEC_TOKEN }}
+          version: https://github.com/godcong/asuswrt-merlin.ng/commit/${{ env.MERLIN_VERSION }}
+        token: ${{ secrets.GITHUB_TOKEN }}
         draft: false
         prerelease: false
